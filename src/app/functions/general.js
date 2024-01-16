@@ -4,9 +4,5 @@ function showAlert(message) {
 function isInputEmpty(email, password) {
   return email === "" || password === "";
 }
-function cleanFormFields(emailElement, passwordElement) {
-  emailElement.value = "";
-  passwordElement.value = "";
-}
 
-export { showAlert, isInputEmpty, cleanFormFields };
+export { showAlert, isInputEmpty };

@@ -1,20 +1,22 @@
-import { useState } from "react";
-import { showAlert, isInputEmpty, cleanFormFields } from "../functions/general";
+import { showAlert, isInputEmpty } from "../functions/general";
 
-export default function SignUpForm({ users, setUsers }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function SignUpForm({
+  users,
+  email,
+  setEmail,
+  password,
+  setPassword,
+}) {
+  function handleSignUp(evt) {
+    evt.preventDefault();
 
-  function handleSignUp(event) {
-    event.preventDefault();
-
-    const isUserExistsWithSamePassword = (email, password) => {
+    const isUserExistsWithSamePassword = (password) => {
       return users.some((user) => user.password === password);
     };
 
     if (isInputEmpty(email, password)) {
       showAlert("Por favor, preencha todos os campos.");
-    } else if (isUserExistsWithSamePassword(email, password)) {
+    } else if (isUserExistsWithSamePassword(password)) {
       const existingUser = users.find((user) => user.password === password);
       showAlert(
         `Já existe um usuário com o email "${existingUser.email}" e a mesma senha "${password}".`
@@ -28,7 +30,6 @@ export default function SignUpForm({ users, setUsers }) {
         password: password,
       });
       showAlert("Cadastro realizado com sucesso!");
-      cleanFormFields(email, password);
     }
   }
 

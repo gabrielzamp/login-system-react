@@ -1,39 +1,28 @@
-export default function LoginForm({ users }) {
-  function handleLogin(event) {
-    event.preventDefault();
+import { showAlert, isInputEmpty } from "../functions/general";
 
-    const emailElement = document.getElementById("loginEmail");
-    const passwordElement = document.getElementById("loginPassword");
-
-    const emailValue = emailElement.value.trim();
-    const passwordValue = passwordElement.value.trim();
+export default function LoginForm({
+  users,
+  email,
+  setEmail,
+  password,
+  setPassword,
+}) {
+  function handleLogin(evt) {
+    evt.preventDefault();
 
     const isValidUser = (email, password) => {
       return users.some(
-        (user) => user.email === email && user.password === password,
+        (user) => user.email === email && user.password === password
       );
     };
 
-    if (isValidUser(emailValue, passwordValue)) {
+    if (isValidUser(email, password)) {
       showAlert("Login bem-sucedido! Seja bem-vindo(a)!");
-    } else if (isInputEmpty(emailValue, passwordValue)) {
+    } else if (isInputEmpty(email, password)) {
       showAlert("Por favor, preencha todos os campos.");
     } else {
       showAlert("Email ou senha incorretos. Tente novamente.");
     }
-
-    cleanFormFields(emailElement, passwordElement);
-  }
-
-  function showAlert(message) {
-    alert(message);
-  }
-  function isInputEmpty(email, password) {
-    return email === "" || password === "";
-  }
-  function cleanFormFields(emailElement, passwordElement) {
-    emailElement.value = "";
-    passwordElement.value = "";
   }
 
   return (
@@ -48,6 +37,10 @@ export default function LoginForm({ users }) {
           <input
             className="border-b border-[#4B687A] w-full text-xs font-light px-1 pb-1 text-black"
             type="email"
+            value={email}
+            onChange={(evt) => {
+              setEmail(evt.target.value);
+            }}
             name="email"
             id="loginEmail"
             placeholder="Enter your email"
@@ -57,6 +50,10 @@ export default function LoginForm({ users }) {
           <input
             className="border-b border-[#4B687A] w-full text-xs font-light px-1 pb-1 text-black"
             type="password"
+            value={password}
+            onChange={(evt) => {
+              setPassword(evt.target.value);
+            }}
             name="password"
             id="loginPassword"
             placeholder="Enter Password"
