@@ -1,16 +1,29 @@
 import { showAlert, isInputEmpty } from "../functions/general";
 
+interface LoginFormProps {
+  users: User[];
+  email: string;
+  setEmail: (email: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
+}
+
+interface User {
+  email: string;
+  password: string;
+}
+
 export default function LoginForm({
   users,
   email,
   setEmail,
   password,
   setPassword,
-}) {
-  function handleLogin(evt) {
+}: LoginFormProps) {
+  function handleLogin(evt: any) {
     evt.preventDefault();
 
-    const isValidUser = (email, password) => {
+    const isValidUser = (email: string, password: string) => {
       return users.some(
         (user) => user.email === email && user.password === password
       );

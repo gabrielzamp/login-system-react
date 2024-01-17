@@ -1,16 +1,29 @@
 import { showAlert, isInputEmpty } from "../functions/general";
 
+interface LoginFormProps {
+  users: User[];
+  email: string;
+  setEmail: (email: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
+}
+
+interface User {
+  email: string;
+  password: string;
+}
+
 export default function SignUpForm({
   users,
   email,
   setEmail,
   password,
   setPassword,
-}) {
-  function handleSignUp(evt) {
+}: LoginFormProps) {
+  function handleSignUp(evt: any) {
     evt.preventDefault();
 
-    const isUserExistsWithSamePassword = (password) => {
+    const isUserExistsWithSamePassword = (password: string) => {
       return users.some((user) => user.password === password);
     };
 
